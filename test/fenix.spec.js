@@ -11,31 +11,61 @@ let sources = {
 		methods: '*'
 	},
 	"comments": {
-		methods: '*'
+		methods: 'GET',
+		cache: {
+			expires: "30"
+		}
 	}
-}
+};
 
 let params = { urlBase, sources };
 let api = new Fenix(params);
 
 describe('fenix', () => {
 
-	it('find one', () => {
+	it('find one', async function() {
 
 		let id = 1;
 
-		api.posts(id).then(data => {
-			assert.typeOf(data, 'object');
-			assert.equal(id, data.id);
-		});
+		let { data: post } = await api.posts(id);
+
+		assert.typeOf(post, 'object');
+		assert.equal(id, post.id);
 
     });
 
-	it('find multiple', () => {
+	it('find multiple', async function() {
 
-		api.posts().then(data => {
-			expect(data).to.be.instanceof(Array);
-		});
+		let { data: posts } = await api.posts();
+
+		expect(posts).to.be.instanceof(Array);
+
+    });
+
+    it('cache saved', async function() {
+
+		let id = 1;
+		let cacheIndex = `${urlBase}/comments/${id}`;
+
+		// Certify that cache entry is not there
+		expect(api._cache[cacheIndex]).to.be.undefined;
+
+		// First fetch
+		let { data: comment } = await api.comments(id);
+
+		// Get cache entry
+		let cacheEntry = api._cache[cacheIndex];
+
+		// Cache entry is there ...
+		expect(cacheEntry).not.to.be.undefined;
+		// and has the same id
+		expect(cacheEntry).to.have.deep.property('res.data.id', id);
+
+		// Second fetch
+		let { data: commentNew } = await api.comments(id);
+
+		// Is the same object, no fetch processed
+		expect(commentNew).to.equal(cacheEntry.res.data);
 
     });
 });
