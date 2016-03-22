@@ -1,7 +1,5 @@
 import 'babel-polyfill';
-import { assert, 
-		 expect, 
-		 should } from "chai";
+import { expect } from "chai";
 import Fenix  	  from "../src/Fenix";
 
 
@@ -53,8 +51,8 @@ describe('fenix', () => {
 
 		let { data: post } = await api.posts(id);
 
-		assert.typeOf(post, 'object');
-		assert.equal(id, post.id);
+		expect(post).to.be.a('object');
+		expect(post).to.have.property('id', id);
 
     });
 
@@ -62,7 +60,7 @@ describe('fenix', () => {
 
 		let { data: posts } = await api.posts();
 
-		expect(posts).to.be.instanceof(Array);
+		expect(posts).to.be.a('array');
 
     });
 
