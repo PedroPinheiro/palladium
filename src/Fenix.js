@@ -7,14 +7,15 @@ if (typeof window !== "undefined" && !window.XMLHttpRequest) // code for IE6, IE
     XMLHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
 
 
+let _mCache = {};
 
 class Fenix {
 
+	get _cache() {
+		return _mCache;
+	}
 
 	constructor ({ urlBase, sources }) {
-
-
-		this._cache = {};
 
 		urlBase += urlBase.slice(-1) !== "/" ? "/" : "";
 

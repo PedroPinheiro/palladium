@@ -90,4 +90,11 @@ describe('fenix', () => {
 		expect(commentNew).to.equal(cacheEntry.res.data);
 
     });
+
+    it('cache is protected', async function() {
+
+    	expect(() => api._cache = {}).to.throw(TypeError);
+
+    });
+
 });
