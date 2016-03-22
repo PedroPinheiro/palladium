@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register",
-    "build": "babel index.js"
+    "build": "babel src/Fenix.js --out-file dist/fenix.js",
+    "start": "babel-node index.js"
   },
   "repository": {
     "type": "git",
