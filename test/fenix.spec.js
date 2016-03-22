@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import { assert, 
 		 expect, 
 		 should } from "chai";
