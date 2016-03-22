@@ -1,6 +1,6 @@
 
 if (typeof XMLHttpRequest === 'undefined') {
-	var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+    var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 }
 
 if (typeof window !== "undefined" && !window.XMLHttpRequest) // code for IE6, IE5
@@ -11,114 +11,114 @@ let _mCache = {};
 
 class Fenix {
 
-	get _cache() {
-		return _mCache;
-	}
+    get _cache() {
+        return _mCache;
+    }
 
-	constructor ({ urlBase, sources }) {
+    constructor ({ urlBase, sources }) {
 
-		urlBase += urlBase.slice(-1) !== "/" ? "/" : "";
+        urlBase += urlBase.slice(-1) !== "/" ? "/" : "";
 
-		Object.keys(sources).forEach((k) => {
+        Object.keys(sources).forEach((k) => {
 
-			let m = sources[k].methods;
-			m = m==="*" ? ["GET","POST","PUT","DELETE"] : m;
-			m = typeof m === "string" ? [m] : m;
+            let m = sources[k].methods;
+            m = m==="*" ? ["GET","POST","PUT","DELETE"] : m;
+            m = typeof m === "string" ? [m] : m;
 
-			let methods = {}
-			methods.GET    = (id) => {
+            let methods = {}
+            methods.GET    = (id) => {
 
-				let url = (id) ? `${urlBase}${k}/${id}` : `${urlBase}${k}`;
-
-
-				return new Promise((resolve, response) => {
+                let url = (id) ? `${urlBase}${k}/${id}` : `${urlBase}${k}`;
 
 
-					if (typeof sources[k].cache !== "undefined" && this._cache[url]) {
-						let now = (new Date()).getTime();
-						if (this._cache[url].expireDate > now) {
-							resolve(this._cache[url].res);
-							return;
-						}
-					}
+                return new Promise((resolve, response) => {
 
-					let fnSaveCache = (res) => {
 
-						if (typeof sources[k].cache === "undefined")
-							return;
+                    if (typeof sources[k].cache !== "undefined" && this._cache[url]) {
+                        let now = (new Date()).getTime();
+                        if (this._cache[url].expireDate > now) {
+                            resolve(this._cache[url].res);
+                            return;
+                        }
+                    }
 
-						let expires = parseInt(sources[k].cache.expires)*1000;
-						let expireDate = (new Date()).getTime()+expires;
-						this._cache[url] = { res, expireDate };
-					}
+                    let fnSaveCache = (res) => {
 
-					this._fetch('GET', url, null, fnSaveCache)
-						.then(resolve)
-						.catch(response);
+                        if (typeof sources[k].cache === "undefined")
+                            return;
 
-				});
+                        let expires = parseInt(sources[k].cache.expires)*1000;
+                        let expireDate = (new Date()).getTime()+expires;
+                        this._cache[url] = { res, expireDate };
+                    }
 
-			}
-			methods.POST   = (data) => this._fetch('POST',   `${urlBase}${k}/${data.id}`, data);
-			methods.PUT    = (data) => this._fetch('PUT',    `${urlBase}${k}/${data.id}`, data);
-			methods.DELETE = (id)   => this._fetch('DELETE', `${urlBase}${k}/${id}`);
+                    this._fetch('GET', url, null, fnSaveCache)
+                        .then(resolve)
+                        .catch(response);
 
-			let _ = null;
+                });
 
-			if (m.length===1) {
-				_ = methods[m[0]];
-			} else {
-				if (m.indexOf("GET")>-1) {
-					m.splice( m.indexOf('GET'), 1 );
-				}
-				_ = methods.GET;
-				m.forEach(k => _[k.toLowerCase()] = methods[k]);
-			}
+            }
+            methods.POST   = (data) => this._fetch('POST',   `${urlBase}${k}/${data.id}`, data);
+            methods.PUT    = (data) => this._fetch('PUT',    `${urlBase}${k}/${data.id}`, data);
+            methods.DELETE = (id)   => this._fetch('DELETE', `${urlBase}${k}/${id}`);
 
-			this[k] = _;
+            let _ = null;
 
-		});
+            if (m.length===1) {
+                _ = methods[m[0]];
+            } else {
+                if (m.indexOf("GET")>-1) {
+                    m.splice( m.indexOf('GET'), 1 );
+                }
+                _ = methods.GET;
+                m.forEach(k => _[k.toLowerCase()] = methods[k]);
+            }
 
-	}
+            this[k] = _;
 
-	_saveCache (url) {
+        });
 
-		this._cache[url]
-	}
+    }
 
-	_fetch (method, url, data, cb) {
+    _saveCache (url) {
 
-		let xhr = new XMLHttpRequest();
-		let a = [];
-		xhr.open(method, url, false);
+        this._cache[url]
+    }
 
-		return new Promise((resolve, response) => {
+    _fetch (method, url, data, cb) {
 
-			let res = {};
-			xhr.onreadystatechange = () => {
+        let xhr = new XMLHttpRequest();
+        let a = [];
+        xhr.open(method, url, false);
 
-			    // Test if request is complete
-			    if (xhr.readyState == 4) {
+        return new Promise((resolve, response) => {
 
-			      // Safari doesn't support xhr.responseType = 'json'
-			      // so the response is parsed
-			      if (xhr.status>=200 && xhr.status<300) {
-			        try {
-			          res.data = JSON.parse(xhr.responseText)
-			        } catch (e) {
-			          res = {}
-			        }
-			        cb(res);
-			        resolve(res);
-			      }
-			    }
-			};
+            let res = {};
+            xhr.onreadystatechange = () => {
 
-			xhr.send(data);
+                // Test if request is complete
+                if (xhr.readyState == 4) {
 
-		});
-		
-	}
+                  // Safari doesn't support xhr.responseType = 'json'
+                  // so the response is parsed
+                  if (xhr.status>=200 && xhr.status<300) {
+                    try {
+                      res.data = JSON.parse(xhr.responseText)
+                    } catch (e) {
+                      res = {}
+                    }
+                    cb(res);
+                    resolve(res);
+                  }
+                }
+            };
+
+            xhr.send(data);
+
+        });
+        
+    }
 
 
 }
