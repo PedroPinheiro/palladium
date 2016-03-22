@@ -23,6 +23,16 @@ let api = new Fenix(params);
 
 describe('fenix', () => {
 
+
+	it('CRUD resource', async function() {
+
+		expect(api.posts).to.be.a('function');
+		expect(api.posts).not.to.have.property('get');
+		expect(api.posts).to.have.property('post');
+		expect(api.posts).to.have.property('put');
+		expect(api.posts).to.have.property('delete');
+
+    });
 	it('find one', async function() {
 
 		let id = 1;
