@@ -15,6 +15,9 @@ let sources = {
 		cache: {
 			expires: "30"
 		}
+	},
+	"savePost": {
+		methods: 'POST'
 	}
 };
 
@@ -33,6 +36,17 @@ describe('fenix', () => {
 		expect(api.posts).to.have.property('delete');
 
     });
+
+	it('service', async function() {
+
+		expect(api.savePost).to.be.a('function');
+		expect(api.savePost).not.to.have.property('get');
+		expect(api.savePost).not.to.have.property('post');
+		expect(api.savePost).not.to.have.property('put');
+		expect(api.savePost).not.to.have.property('delete');
+
+    });
+
 	it('find one', async function() {
 
 		let id = 1;

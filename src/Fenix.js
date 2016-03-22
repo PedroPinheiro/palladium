@@ -64,7 +64,7 @@ class Fenix {
 
 			let _ = null;
 
-			if (m.length===0) {
+			if (m.length===1) {
 				_ = methods[m[0]];
 			} else {
 				if (m.indexOf("GET")>-1) {
