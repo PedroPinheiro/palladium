@@ -3,8 +3,8 @@ import { expect } from "chai";
 import Fenix      from "../src/Fenix";
 
 
-let urlBase = "http://jsonplaceholder.typicode.com"
-let sources = {
+const urlBase = "http://jsonplaceholder.typicode.com"
+const sources = {
     "posts": {
         methods: '*'
     },
@@ -19,11 +19,94 @@ let sources = {
     }
 };
 
-let params = { urlBase, sources };
-let api = new Fenix(params);
+const params = { urlBase, sources };
+const api = new Fenix(params);
 
 describe('fenix', () => {
 
+    it('_formatMethods', function() {
+
+        let m1 = api._formatMethods('GET');
+        expect(m1).to.have.property('length',1);
+
+        let m2 = api._formatMethods(['GET','POST']);
+        expect(m2).to.have.property('length',2);
+
+        let m3 = api._formatMethods(['GET','POST','PUT']);
+        expect(m3).to.have.property('length',3);
+
+        let m4 = api._formatMethods('*');
+        expect(m4).to.have.property('length',4);
+
+    });
+
+    it('_createMethods', function() {
+
+        let sourceName, methods;
+
+        let testMethods = (methods) => {
+            expect(methods).to.have.property('GET');
+            expect(methods).to.have.property('POST');
+            expect(methods).to.have.property('PUT');
+            expect(methods).to.have.property('DELETE');          
+        }
+
+        sourceName = 'posts';
+        methods = api._createMethods(urlBase, sources[sourceName], sourceName);
+        testMethods(methods);
+
+        sourceName = 'comments';
+        methods = api._createMethods(urlBase, sources[sourceName], sourceName);
+        testMethods(methods);
+
+        sourceName = 'savePost';
+        methods = api._createMethods(urlBase, sources[sourceName], sourceName);
+        testMethods(methods);
+
+    });
+
+    it('_getSourceObject', function() {
+
+        let m, methods, sourceObject;
+        methods = {'GET':()=>{},'POST':()=>{},'PUT':()=>{},'DELETE':()=>{}};
+
+        m = ['GET'];
+        sourceObject = api._getSourceObject(m, methods);
+        expect(sourceObject).to.be.a('function');
+        expect(sourceObject).not.to.have.property('get');
+        expect(sourceObject).not.to.have.property('post');
+        expect(sourceObject).not.to.have.property('put');
+        expect(sourceObject).not.to.have.property('delete');
+
+        m = ['GET','POST'];
+        sourceObject = api._getSourceObject(m, methods);
+        expect(sourceObject).to.be.a('function');
+        expect(sourceObject).not.to.have.property('get');
+        expect(sourceObject).to.have.property('post');
+        expect(sourceObject).not.to.have.property('put');
+        expect(sourceObject).not.to.have.property('delete');
+
+        m = ['GET','POST','PUT','DELETE'];
+        sourceObject = api._getSourceObject(m, methods);
+        expect(sourceObject).to.be.a('function');
+        expect(sourceObject).not.to.have.property('get');
+        expect(sourceObject).to.have.property('post');
+        expect(sourceObject).to.have.property('put');
+        expect(sourceObject).to.have.property('delete');
+        
+    });
+
+
+    it('_processSources', function() {
+
+        let api = new Fenix(params);
+        api._processSources(urlBase, sources);
+        expect(api).to.have.property('posts');
+        expect(api).to.have.property('comments');
+        expect(api).to.have.property('savePost');
+        
+
+    });
 
     it('CRUD resource', async function() {
 
