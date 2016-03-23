@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register",
-    "build": "babel src/Fenix.js --out-file dist/fenix.js",
+    "build": "babel src/Fenix.js --out-file dist/fenix.js && uglifyjs dist/fenix.js -m -o dist/fenix.min.js --source-map dist/fenix.min.js.map",
     "start": "babel-node index.js"
   },
   "repository": {
@@ -30,6 +30,7 @@
     "babel-register": "^6.7.2",
     "chai": "^3.5.0",
     "mocha": "^2.4.5",
+    "uglify-js": "^2.6.2",
     "xmlhttprequest": "^1.8.0"
   }
 }
