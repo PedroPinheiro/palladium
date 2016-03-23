@@ -15,69 +15,94 @@ class Fenix {
         return _mCache;
     }
 
+    _formatMethods (m) {
+
+        m = m==="*" ? ["GET","POST","PUT","DELETE"] : m;
+        m = typeof m === "string" ? [m] : m;
+        return m;
+    }
+
+    _createMethods (urlBase, source, sourceName) {
+
+        let methods = {}
+
+        methods.GET    = (id) => {
+
+            let url = (id) ? `${urlBase}${sourceName}/${id}` : `${urlBase}${sourceName}`;
+
+            return new Promise((resolve, response) => {
+
+                if (typeof source.cache !== "undefined" && this._cache[url]) {
+                    let now = (new Date()).getTime();
+                    if (this._cache[url].expireDate > now) {
+                        resolve(this._cache[url].res);
+                        return;
+                    }
+                }
+
+                let fnSaveCache = (res) => {
+
+                    if (typeof source.cache === "undefined")
+                        return;
+
+                    let expires = parseInt(source.cache.expires)*1000;
+                    let expireDate = (new Date()).getTime()+expires;
+                    this._cache[url] = { res, expireDate };
+                }
+
+                this._fetch('GET', url, null, fnSaveCache)
+                    .then(resolve)
+                    .catch(response);
+
+            });
+
+        }
+        methods.POST   = (data) => this._fetch('POST',   `${urlBase}${sourceName}/${data.id}`, data);
+        methods.PUT    = (data) => this._fetch('PUT',    `${urlBase}${sourceName}/${data.id}`, data);
+        methods.DELETE = (id)   => this._fetch('DELETE', `${urlBase}${sourceName}/${id}`);
+
+        return methods;
+    }
+
+    _getSourceObject (m, methods) {
+
+        let _ = null;
+
+        if (m.length===1) {
+            _ = methods[m[0]];
+        } else {
+            if (m.indexOf("GET")>-1) {
+                m.splice( m.indexOf('GET'), 1 );
+            }
+            _ = methods.GET;
+            m.forEach(k => _[k.toLowerCase()] = methods[k]);
+        }
+
+        return _;
+    }
+
+    _processSources (urlBase, sources) {
+
+        // iterate throw all sources
+        Object.keys(sources).forEach((k) => {
+
+            // obtain the methods
+            let m = this._formatMethods(sources[k].methods);
+
+            // methods
+            let methods = this._createMethods(urlBase, sources[k], k);
+
+            // The  
+            this[k] = this._getSourceObject(m, methods);
+
+        });  
+    }
+
     constructor ({ urlBase, sources }) {
 
         urlBase += urlBase.slice(-1) !== "/" ? "/" : "";
-
-        Object.keys(sources).forEach((k) => {
-
-            let m = sources[k].methods;
-            m = m==="*" ? ["GET","POST","PUT","DELETE"] : m;
-            m = typeof m === "string" ? [m] : m;
-
-            let methods = {}
-            methods.GET    = (id) => {
-
-                let url = (id) ? `${urlBase}${k}/${id}` : `${urlBase}${k}`;
-
-
-                return new Promise((resolve, response) => {
-
-
-                    if (typeof sources[k].cache !== "undefined" && this._cache[url]) {
-                        let now = (new Date()).getTime();
-                        if (this._cache[url].expireDate > now) {
-                            resolve(this._cache[url].res);
-                            return;
-                        }
-                    }
-
-                    let fnSaveCache = (res) => {
-
-                        if (typeof sources[k].cache === "undefined")
-                            return;
-
-                        let expires = parseInt(sources[k].cache.expires)*1000;
-                        let expireDate = (new Date()).getTime()+expires;
-                        this._cache[url] = { res, expireDate };
-                    }
-
-                    this._fetch('GET', url, null, fnSaveCache)
-                        .then(resolve)
-                        .catch(response);
-
-                });
-
-            }
-            methods.POST   = (data) => this._fetch('POST',   `${urlBase}${k}/${data.id}`, data);
-            methods.PUT    = (data) => this._fetch('PUT',    `${urlBase}${k}/${data.id}`, data);
-            methods.DELETE = (id)   => this._fetch('DELETE', `${urlBase}${k}/${id}`);
-
-            let _ = null;
-
-            if (m.length===1) {
-                _ = methods[m[0]];
-            } else {
-                if (m.indexOf("GET")>-1) {
-                    m.splice( m.indexOf('GET'), 1 );
-                }
-                _ = methods.GET;
-                m.forEach(k => _[k.toLowerCase()] = methods[k]);
-            }
-
-            this[k] = _;
-
-        });
+        
+        this._processSources(urlBase, sources);
 
     }
 
@@ -90,7 +115,7 @@ class Fenix {
 
         let xhr = new XMLHttpRequest();
         let a = [];
-        xhr.open(method, url, false);
+        xhr.open(method, url, true);
 
         return new Promise((resolve, response) => {
 
