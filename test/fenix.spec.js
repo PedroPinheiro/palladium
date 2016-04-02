@@ -3,7 +3,7 @@ import { expect } from "chai";
 import Fenix      from "../src/Fenix";
 
 
-const urlBase = "http://jsonplaceholder.typicode.com"
+const urlBase = "http://jsonplaceholder.typicode.com";
 const sources = {
     "posts": {
         methods: '*'
@@ -48,8 +48,8 @@ describe('fenix', () => {
             expect(methods).to.have.property('GET');
             expect(methods).to.have.property('POST');
             expect(methods).to.have.property('PUT');
-            expect(methods).to.have.property('DELETE');          
-        }
+            expect(methods).to.have.property('DELETE');
+        };
 
         sourceName = 'posts';
         methods = api._createMethods(urlBase, sources[sourceName], sourceName);
@@ -93,7 +93,7 @@ describe('fenix', () => {
         expect(sourceObject).to.have.property('post');
         expect(sourceObject).to.have.property('put');
         expect(sourceObject).to.have.property('delete');
-        
+
     });
 
 
@@ -104,7 +104,7 @@ describe('fenix', () => {
         expect(api).to.have.property('posts');
         expect(api).to.have.property('comments');
         expect(api).to.have.property('savePost');
-        
+
 
     });
 

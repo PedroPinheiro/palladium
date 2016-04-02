@@ -24,7 +24,7 @@ class Fenix {
 
     _createMethods (urlBase, source, sourceName) {
 
-        let methods = {}
+        let methods = {};
 
         methods.GET    = (id) => {
 
@@ -48,7 +48,7 @@ class Fenix {
                     let expires = parseInt(source.cache.expires)*1000;
                     let expireDate = (new Date()).getTime()+expires;
                     this._cache[url] = { res, expireDate };
-                }
+                };
 
                 this._fetch('GET', url, null, fnSaveCache)
                     .then(resolve)
@@ -56,7 +56,7 @@ class Fenix {
 
             });
 
-        }
+        };
         methods.POST   = (data) => this._fetch('POST',   `${urlBase}${sourceName}/${data.id}`, data);
         methods.PUT    = (data) => this._fetch('PUT',    `${urlBase}${sourceName}/${data.id}`, data);
         methods.DELETE = (id)   => this._fetch('DELETE', `${urlBase}${sourceName}/${id}`);
@@ -92,23 +92,23 @@ class Fenix {
             // methods
             let methods = this._createMethods(urlBase, sources[k], k);
 
-            // The  
+            // The
             this[k] = this._getSourceObject(m, methods);
 
-        });  
+        });
     }
 
     constructor ({ urlBase, sources }) {
 
         urlBase += urlBase.slice(-1) !== "/" ? "/" : "";
-        
+
         this._processSources(urlBase, sources);
 
     }
 
     _saveCache (url) {
 
-        this._cache[url]
+        this._cache[url];
     }
 
     _fetch (method, url, data, cb) {
@@ -129,9 +129,9 @@ class Fenix {
                   // so the response is parsed
                   if (xhr.status>=200 && xhr.status<300) {
                     try {
-                      res.data = JSON.parse(xhr.responseText)
+                      res.data = JSON.parse(xhr.responseText);
                     } catch (e) {
-                      res = {}
+                      res = {};
                     }
                     cb(res);
                     resolve(res);
@@ -142,7 +142,7 @@ class Fenix {
             xhr.send(data);
 
         });
-        
+
     }
 
 
