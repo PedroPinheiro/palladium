@@ -65,13 +65,13 @@ describe('fenix', () => {
 
     });
 
-    it('_getSourceObject', function() {
+    it('_getEndpointObject', function() {
 
         let m, methods, sourceObject;
         methods = {'GET':()=>{},'POST':()=>{},'PUT':()=>{},'DELETE':()=>{}};
 
         m = ['GET'];
-        sourceObject = api._getSourceObject(m, methods);
+        sourceObject = api._getEndpointObject(m, methods);
         expect(sourceObject).to.be.a('function');
         expect(sourceObject).not.to.have.property('get');
         expect(sourceObject).not.to.have.property('post');
@@ -79,7 +79,7 @@ describe('fenix', () => {
         expect(sourceObject).not.to.have.property('delete');
 
         m = ['GET','POST'];
-        sourceObject = api._getSourceObject(m, methods);
+        sourceObject = api._getEndpointObject(m, methods);
         expect(sourceObject).to.be.a('function');
         expect(sourceObject).not.to.have.property('get');
         expect(sourceObject).to.have.property('post');
@@ -87,7 +87,7 @@ describe('fenix', () => {
         expect(sourceObject).not.to.have.property('delete');
 
         m = ['GET','POST','PUT','DELETE'];
-        sourceObject = api._getSourceObject(m, methods);
+        sourceObject = api._getEndpointObject(m, methods);
         expect(sourceObject).to.be.a('function');
         expect(sourceObject).not.to.have.property('get');
         expect(sourceObject).to.have.property('post');

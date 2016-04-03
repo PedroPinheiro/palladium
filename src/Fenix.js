@@ -64,7 +64,7 @@ class Fenix {
         return methods;
     }
 
-    _getSourceObject (m, methods) {
+    _getEndpointObject (m, methods) {
 
         let _ = null;
 
@@ -98,7 +98,7 @@ class Fenix {
             let methods = this._createMethods(urlBase, config[k], k);
 
             // The
-            endpoint[k] = this._getSourceObject(m, methods);
+            endpoint[k] = this._getEndpointObject(m, methods);
 
             this._processEndpoint (urlBase, config[k], endpoint[k]);
 
