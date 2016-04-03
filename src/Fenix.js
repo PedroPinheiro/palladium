@@ -82,28 +82,39 @@ class Fenix {
         return _;
     }
 
-    _processEndpoint (urlBase, root) {
+    _processEndpoint (urlBase, config, endpoint) {
 
-        // iterate throw the endpoint
-        Object.keys(root).forEach((k) => {
+        // iterate throw the config
+        Object.keys(config).forEach((k) => {
+
+            if (k === "methods" || k === "cache") {
+                return;
+            }
 
             // obtain the methods
-            let m = this._formatMethods(root[k].methods);
+            let m = this._formatMethods(config[k].methods);
 
             // methods
-            let methods = this._createMethods(urlBase, root[k], k);
+            let methods = this._createMethods(urlBase, config[k], k);
 
             // The
-            this[k] = this._getSourceObject(m, methods);
+            endpoint[k] = this._getSourceObject(m, methods);
+
+            this._processEndpoint (urlBase, config[k], endpoint[k]);
 
         });
+    }
+
+    _processRoot (urlBase, config) {
+
+        this._processEndpoint (urlBase, config, this);
     }
 
     constructor ({ urlBase, root }) {
 
         urlBase += urlBase.slice(-1) !== "/" ? "/" : "";
 
-        this._processEndpoint(urlBase, root);
+        this._processRoot(urlBase, root);
 
     }
 

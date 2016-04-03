@@ -97,10 +97,10 @@ describe('fenix', () => {
     });
 
 
-    it('_processEndpoint', function() {
+    it('_processRoot', function() {
 
         let api = new Fenix(params);
-        api._processEndpoint(urlBase, root);
+        api._processRoot(urlBase, root);
         expect(api).to.have.property('posts');
         expect(api).to.have.property('comments');
         expect(api).to.have.property('savePost');

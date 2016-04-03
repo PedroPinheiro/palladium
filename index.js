@@ -6,7 +6,7 @@ let root = {
     "posts": {
         methods: '*',
         "comments": {
-            methods: 'GET',
+            methods: '*',
             cache: {
                 expires: "30"
             }
@@ -24,7 +24,8 @@ let root = {
 let api = new Fenix({ urlBase, root });
 
 
-
+console.log(api.posts.comments);
+/*
 (async function() {
 
     let comment = await api.comments(1);
@@ -36,3 +37,4 @@ let api = new Fenix({ urlBase, root });
     console.log(comment2);
 
 }());
+*/
