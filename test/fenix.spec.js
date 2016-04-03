@@ -153,13 +153,13 @@ describe('fenix', () => {
         let cacheIndex = `${urlBase}/comments/${id}`;
 
         // Certify that cache entry is not there
-        expect(api._cache[cacheIndex]).to.be.undefined;
+        expect(api.cache[cacheIndex]).to.be.undefined;
 
         // First fetch
         let { data: comment } = await api.comments(id);
 
         // Get cache entry
-        let cacheEntry = api._cache[cacheIndex];
+        let cacheEntry = api.cache[cacheIndex];
 
         // Cache entry is there ...
         expect(cacheEntry).not.to.be.undefined;
@@ -176,7 +176,7 @@ describe('fenix', () => {
 
     it('cache is protected', async function() {
 
-        expect(() => api._cache = {}).to.throw(TypeError);
+        expect(() => api.cache = {}).to.throw(TypeError);
 
     });
 

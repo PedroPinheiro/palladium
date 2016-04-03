@@ -7,12 +7,12 @@ if (typeof window !== "undefined" && !window.XMLHttpRequest) // code for IE6, IE
     XMLHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
 
 
-let _mCache = {};
+let _cache = {};
 
 class Fenix {
 
-    get _cache() {
-        return _mCache;
+    get cache() {
+        return _cache;
     }
 
     _formatMethods (m) {
@@ -32,10 +32,10 @@ class Fenix {
 
             return new Promise((resolve, response) => {
 
-                if (typeof source.cache !== "undefined" && this._cache[url]) {
+                if (typeof source.cache !== "undefined" && this.cache[url]) {
                     let now = (new Date()).getTime();
-                    if (this._cache[url].expireDate > now) {
-                        resolve(this._cache[url].res);
+                    if (this.cache[url].expireDate > now) {
+                        resolve(this.cache[url].res);
                         return;
                     }
                 }
@@ -47,7 +47,7 @@ class Fenix {
 
                     let expires = parseInt(source.cache.expires)*1000;
                     let expireDate = (new Date()).getTime()+expires;
-                    this._cache[url] = { res, expireDate };
+                    this.cache[url] = { res, expireDate };
                 };
 
                 this._fetch('GET', url, null, fnSaveCache)
@@ -108,7 +108,7 @@ class Fenix {
 
     _saveCache (url) {
 
-        this._cache[url];
+        this.cache[url];
     }
 
     _fetch (method, url, data, cb) {
