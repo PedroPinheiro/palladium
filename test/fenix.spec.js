@@ -4,7 +4,7 @@ import Fenix      from "../src/Fenix";
 
 
 const urlBase = "http://jsonplaceholder.typicode.com";
-const sources = {
+const root = {
     "posts": {
         methods: '*'
     },
@@ -19,7 +19,7 @@ const sources = {
     }
 };
 
-const params = { urlBase, sources };
+const params = { urlBase, root };
 const api = new Fenix(params);
 
 describe('fenix', () => {
@@ -52,15 +52,15 @@ describe('fenix', () => {
         };
 
         sourceName = 'posts';
-        methods = api._createMethods(urlBase, sources[sourceName], sourceName);
+        methods = api._createMethods(urlBase, root[sourceName], sourceName);
         testMethods(methods);
 
         sourceName = 'comments';
-        methods = api._createMethods(urlBase, sources[sourceName], sourceName);
+        methods = api._createMethods(urlBase, root[sourceName], sourceName);
         testMethods(methods);
 
         sourceName = 'savePost';
-        methods = api._createMethods(urlBase, sources[sourceName], sourceName);
+        methods = api._createMethods(urlBase, root[sourceName], sourceName);
         testMethods(methods);
 
     });
@@ -97,10 +97,10 @@ describe('fenix', () => {
     });
 
 
-    it('_processSources', function() {
+    it('_processEndpoint', function() {
 
         let api = new Fenix(params);
-        api._processSources(urlBase, sources);
+        api._processEndpoint(urlBase, root);
         expect(api).to.have.property('posts');
         expect(api).to.have.property('comments');
         expect(api).to.have.property('savePost');

@@ -1,10 +1,16 @@
-import Fenix from "./src/Fenix"
+import Fenix from "./src/Fenix";
 
 
-let urlBase = "http://jsonplaceholder.typicode.com"
-let sources = {
+let urlBase = "http://jsonplaceholder.typicode.com";
+let root = {
     "posts": {
-        methods: '*'
+        methods: '*',
+        "comments": {
+            methods: 'GET',
+            cache: {
+                expires: "30"
+            }
+        }
     },
     "comments": {
         methods: 'GET',
@@ -15,7 +21,7 @@ let sources = {
 };
 
 
-let api = new Fenix({ urlBase, sources });
+let api = new Fenix({ urlBase, root });
 
 
 

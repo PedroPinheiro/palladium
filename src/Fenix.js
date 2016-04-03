@@ -76,21 +76,22 @@ class Fenix {
             }
             _ = methods.GET;
             m.forEach(k => _[k.toLowerCase()] = methods[k]);
+
         }
 
         return _;
     }
 
-    _processSources (urlBase, sources) {
+    _processEndpoint (urlBase, root) {
 
-        // iterate throw all sources
-        Object.keys(sources).forEach((k) => {
+        // iterate throw the endpoint
+        Object.keys(root).forEach((k) => {
 
             // obtain the methods
-            let m = this._formatMethods(sources[k].methods);
+            let m = this._formatMethods(root[k].methods);
 
             // methods
-            let methods = this._createMethods(urlBase, sources[k], k);
+            let methods = this._createMethods(urlBase, root[k], k);
 
             // The
             this[k] = this._getSourceObject(m, methods);
@@ -98,11 +99,11 @@ class Fenix {
         });
     }
 
-    constructor ({ urlBase, sources }) {
+    constructor ({ urlBase, root }) {
 
         urlBase += urlBase.slice(-1) !== "/" ? "/" : "";
 
-        this._processSources(urlBase, sources);
+        this._processEndpoint(urlBase, root);
 
     }
 
