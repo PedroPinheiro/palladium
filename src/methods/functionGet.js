@@ -53,7 +53,7 @@ export default function get(id)  {
     } else {
 
         // Create clone route
-        let clone = get.clone();//new Function('return ' + get.toString())();
+        let clone = get.clone();
 
         clone.url = `${url}/${id}`;
 
