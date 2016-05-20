@@ -4,7 +4,8 @@
   "description": "FenixJS, smart fetch library",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-register",
+    "test": "mocha --recursive --compilers js:babel-register",
+    "coverage": "babel-node node_modules/isparta/bin/isparta cover --report text --report html node_modules/mocha/bin/_mocha -- --reporter dot",
     "build": "babel src/Fenix.js --out-file dist/fenix.js && uglifyjs dist/fenix.js -m -o dist/fenix.min.js --source-map dist/fenix.min.js.map",
     "start": "babel-node index.js"
   },
@@ -29,8 +30,15 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.7.2",
     "chai": "^3.5.0",
+    "isparta": "^4.0.0",
+    "istanbul": "^0.4.3",
     "mocha": "^2.4.5",
+    "object-assign": "^4.1.0",
     "uglify-js": "^2.6.2",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "dependencies": {
+    "node-localstorage": "^1.1.2",
     "xmlhttprequest": "^1.8.0"
   }
 }

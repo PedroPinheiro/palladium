@@ -1,14 +1,17 @@
-import Fenix from "./src/Fenix";
+import Fenix                 from "./src/Fenix";
+import { LocalStorageCache } from "./src/cache";
 
 
-let urlBase = "http://jsonplaceholder.typicode.com";
-let root = {
+
+let url = "http://jsonplaceholder.typicode.com";
+let config = {
     "posts": {
         methods: '*',
         "comments": {
             methods: '*',
             cache: {
-                expires: "30"
+                expires: "30",
+                // type: LocalStorageCache
             }
         }
     },
@@ -21,20 +24,20 @@ let root = {
 };
 
 
-let api = new Fenix({ urlBase, root });
+let api = new Fenix({ url, config });
 
 
-console.log(api.posts.comments);
-/*
-(async function() {
 
-    let comment = await api.comments(1);
+api.posts().then(({data}) => console.log(data.length));
+api.posts().then(({data}) => console.log(data.length));
+//
+// api.posts("2")
+//     .comments()
+//     .then(({data}) => console.log(data.length))
+//     .catch((err) => {console.log(err)});
+//
+api.comments().then(({data}) => {
+    let d = data;
+    api.comments().then(({data}) => console.log(data.length, d.length))
 
-    console.log(comment);
-
-    let comment2 = await api.comments(1);
-
-    console.log(comment2);
-
-}());
-*/
+});
