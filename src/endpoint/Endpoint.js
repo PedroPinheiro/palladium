@@ -1,7 +1,15 @@
 import get             from "../methods/functionGet";
 import { MemoryCache } from "../cache";
 
-const _reservedWords = ["cache","methods"];
+
+const _defaults = {
+    cache: {
+        expires: 0
+    },
+    methods: '*'
+};
+
+const _reservedWords = Object.keys(_defaults); //["cache","methods"];
 
 class Endpoint {
 
