@@ -11,9 +11,9 @@ class LocalStorageCache extends BaseCache {
         super();
     }
 
-    async add(key, value, expires) {
+    add(key, value, expires) {
 
-        let item = await super.add(key, value, expires);
+        let item = super.add(key, value, expires);
 
         localStorage.setItem(key, item);
     }
