@@ -137,7 +137,10 @@ class Service extends Endpoint {
 class EndpointFactory {
 
     static create(params) {
-        return new Resource(params);
+        let { config } = params;
+        return (config.methods=="*") ?
+            new Resource(params) :
+            new Service(params);
     }
 
 }
