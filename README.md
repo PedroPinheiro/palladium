@@ -6,4 +6,4 @@
 
 ## Roadmap
 * Default Configuration
-* Garbage collector
+* Garbage collector 
