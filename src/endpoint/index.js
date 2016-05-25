@@ -6,28 +6,35 @@ const _reservedWords = Object.keys(fenixDefaults);
 
 class Endpoint {
 
-    constructor({url,config}) {
+    constructor({url,config,defaults}) {
 
-        this._onInit({url,config});
+        this._onInit({url,config,defaults});
 
         this._url    = url;
         this._config = config;
 
-        // iterate throw the config
+        this._setDefaults(defaults);
+
+        // iterate throw the config to get subEndpoints
         Object.keys(config).forEach((k) => {
-            if (this._isReservedWord(k)) {
+            // not a endpoint
+            if (!this._isEndpoint(k)) {
                 return;
             }
             let configItem = config[k];
-            let params = {url: `${url}/${k}`, config: configItem};
+            let params = {url: `${url}/${k}`, config: configItem, defaults};
             let subEndpoint = EndpointFactory.create(params);
             this._handleSubendpoint(k, subEndpoint);
         });
 
     }
 
-    _isReservedWord(word) {
-        return _reservedWords.indexOf(word)>-1;
+    _setDefaults(defaults) {
+        this._defaults = Object.assign({}, fenixDefaults, defaults);
+    }
+
+    _isEndpoint(word) {
+        return _reservedWords.indexOf(word)==-1;
     }
 
     _handleSubendpoint(key, endpoint) {
@@ -42,9 +49,9 @@ class Endpoint {
 
 class Resource extends Endpoint {
 
-    constructor({url, config}) {
+    constructor(params) {
 
-        super({url,config});
+        super(params);
 
         return this._formatReturn();
     }
@@ -120,9 +127,9 @@ class Resource extends Endpoint {
 
 class Service extends Endpoint {
 
-    constructor({url, config}) {
+    constructor(params) {
 
-        super({url,config});
+        super(params);
     }
 
 }
