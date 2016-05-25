@@ -2,10 +2,9 @@ import { Get, Post, Put, Delete } from "../methods";
 import { MemoryCache }            from "../cache";
 
 const _defaults = {
-    cache: {
-        expires: 0
-    },
-    methods: '*'
+    cache : null,
+    methods : '*',
+    options : { pk : "id" }
 };
 
 const _reservedWords = Object.keys(_defaults);

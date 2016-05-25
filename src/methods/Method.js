@@ -1,28 +1,24 @@
 import fetcher        from "../fetcher";
 import PrivateSupport from "../utils/PrivateSupport";
 
-let _url = new PrivateSupport();
-let _cache = new PrivateSupport();
-let _method = new PrivateSupport();
-
 class Method {
 
     constructor({url, cache, method}) {
-        _url.set(this, url);
-        _cache.set(this, cache);
-        _method.set(this, method);
+        this.url.set(this, url);
+        this.cache.set(this, cache);
+        this.method.set(this, method);
     }
 
     get url() {
-        return _url.get(this);
+        return this.url.get(this);
     }
 
     get cache() {
-        return _cache.get(this);
+        return this.cache.get(this);
     }
 
     get method() {
-        return _method.get(this);
+        return this.method.get(this);
     }
 
 
