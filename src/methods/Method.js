@@ -1,28 +1,27 @@
 import fetcher        from "../fetcher";
-import PrivateSupport from "../utils/PrivateSupport";
 
 class Method {
 
     constructor({url, cache, method}) {
-        this.url.set(this, url);
-        this.cache.set(this, cache);
-        this.method.set(this, method);
+        this._url    = url;
+        this._cache  = cache;
+        this._method = method;
     }
 
     get url() {
-        return this.url.get(this);
+        return this._url;
     }
 
     get cache() {
-        return this.cache.get(this);
+        return this._cache;
     }
 
     get method() {
-        return this.method.get(this);
+        return this._method;
     }
 
 
-    execute(data) {
+    execute(data, options) {
 
         return fetcher(this.method,
                        this.url,
