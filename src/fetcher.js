@@ -13,7 +13,7 @@ export default function fetcher (method, url, data, cb) {
     let a = [];
     xhr.open(method, url, true);
 
-    console.log("log: fetcher:", url);
+    console.log("log: fetcher:", method, url);
 
     return new Promise((resolve, response) => {
 

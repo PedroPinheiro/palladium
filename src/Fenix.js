@@ -1,5 +1,5 @@
 import { MemoryCache } from "./cache";
-import Endpoint        from "./endpoint/Endpoint";
+import Endpoint        from "./endpoint";
 
 let _defaults = {
     cache: {
