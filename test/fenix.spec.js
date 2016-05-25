@@ -25,14 +25,16 @@ let config = {
 
 const api = new Fenix({ url, config });
 
-describe('fenix', () => {
+describe('Fenix', () => {
 
-    if ("Without cache") {
+    it ("Generated correctly with the config", () => {
 
-        api.posts();
-        api.posts();
+        expect(api).to.have.property('posts');
+        expect(api).to.have.deep.property('posts.comments');
+        expect(api).to.have.property('comments');
 
-    }
+    });
+
 //     // // it('_formatMethods', function() {
 //     // //
 //     // //     let m1 = api._formatMethods('GET');
