@@ -1,5 +1,4 @@
 import Method        from "./Method";
-import cloneFunction from "../utils/cloneFunction";
 
 class Get extends Method {
 
@@ -14,20 +13,23 @@ class Get extends Method {
         let { url, cache } = this;
 
         return new Promise((resolve, response) => {
-            let valueFromCache = this._getValueFromCache();
+            let valueFromCache = this._getDataFromCache();
             if (valueFromCache) {
                 resolve(valueFromCache)
                 return;
             }
 
             super.execute()
-                .then(resolve)
+                .then(data => {
+                    this._saveDataToCache(data);
+                    resolve(data);
+                })
                 .catch(response)
         });
 
     }
 
-    _getValueFromCache() {
+    _getDataFromCache() {
 
         let { cache, url } = this;
 
@@ -50,7 +52,7 @@ class Get extends Method {
         return;
     }
 
-    _fetchCallback(value) {
+    _saveDataToCache(value) {
 
         let { cache, url } = this;
 

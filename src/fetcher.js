@@ -7,7 +7,7 @@ if (typeof window !== "undefined" && !window.XMLHttpRequest) // code for IE6, IE
     XMLHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
 
 
-export default function fetcher (method, url, data, cb) {
+export default function fetcher (method, url, data) {
 
     let xhr = new XMLHttpRequest();
     let a = [];
@@ -31,7 +31,6 @@ export default function fetcher (method, url, data, cb) {
                 } catch (e) {
                   res = {};
                 }
-                cb(res);
                 resolve(res);
               }
             }

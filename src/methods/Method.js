@@ -25,12 +25,8 @@ class Method {
 
         return fetcher(this.method,
                        this.url,
-                       data,
-                       this._fetchCallback.bind(this));
+                       data);
 
-    }
-
-    _fetchCallback(value) {
     }
 
 }
