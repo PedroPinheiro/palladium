@@ -4,16 +4,18 @@ import { Resource }          from "./src/endpoint";
 
 
 
-let url = "http://jsonplaceholder.typicode.com";
+const url = "http://jsonplaceholder.typicode.com";
 
-let typeAuth = new ConfigType();
+// let typeAuth = new ConfigType();
+//
+// let defaults = {
+//     options: [AuthenticatedMixin]
+// }
 
-let defaults = {
-    options: [AuthenticatedMixin]
-}
+const defaults = {};
 
 
-let config = {
+const config = {
     "posts": {
         methods: '*',
         "comments": {
@@ -34,13 +36,10 @@ let config = {
 };
 
 
-let api = new Fenix({ url, config });
+const api = new Fenix({ url, config, defaults });
 
 // api.posts().then(({data}) => console.log(data.length));
 // api.posts().then(({data}) => console.log(data.length));
-
-api.comments({}, mixinAuthenticated)
-
 
 
 api.posts();
