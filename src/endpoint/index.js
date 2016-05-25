@@ -1,7 +1,14 @@
 import { Get, Post, Put, Delete } from "../methods";
 import { MemoryCache }            from "../cache";
 
-const _reservedWords = ["cache","methods"];
+const _defaults = {
+    cache: {
+        expires: 0
+    },
+    methods: '*'
+};
+
+const _reservedWords = Object.keys(_defaults);
 
 class Endpoint {
 
