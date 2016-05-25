@@ -1,13 +1,8 @@
 import { Get, Post, Put, Delete } from "../methods";
 import { MemoryCache }            from "../cache";
+import { fenixDefaults }          from "../config";
 
-const _defaults = {
-    cache : null,
-    methods : '*',
-    options : { pk : "id" }
-};
-
-const _reservedWords = Object.keys(_defaults);
+const _reservedWords = Object.keys(fenixDefaults);
 
 class Endpoint {
 
