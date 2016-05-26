@@ -1,8 +1,8 @@
 import BaseCache from "./BaseCache";
 
 // if (typeof localStorage === 'undefined') {
-    const LocalStorage = require('node-localstorage').LocalStorage;
-    const localStorage = new LocalStorage('./scratch');
+//     const LocalStorage = require('node-localstorage').LocalStorage;
+//     const localStorage = new LocalStorage('./scratch');
 // }
 
 class LocalStorageCache extends BaseCache {
