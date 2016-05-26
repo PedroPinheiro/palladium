@@ -73,11 +73,8 @@ class Resource extends Endpoint {
         let returnFunction = this._processGet.bind(this);
         returnFunction.save = this.save.bind(this);
         returnFunction.delete = this.delete.bind(this);
-        returnFunction
-        //
-        // Object.assign(returnFunction,
-        //               this._methods,
-        //               this._subEndpoints)
+
+        Object.assign(returnFunction, this._subEndpoints);
 
         return returnFunction;
     }

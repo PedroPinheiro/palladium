@@ -1,8 +1,8 @@
 
-if (typeof XMLHttpRequest === 'undefined') {
-    var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-}
-
+// if (typeof XMLHttpRequest === 'undefined') {
+//     var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+// }
+//
 if (typeof window !== "undefined" && !window.XMLHttpRequest) // code for IE6, IE5
     XMLHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
 
@@ -13,8 +13,6 @@ export default function fetcher (method, url, data) {
     let xhr = new XMLHttpRequest();
     let a = [];
     xhr.open(method, url, true);
-
-    console.log("log: fetcher:", method, url);
 
     let promise = new AbortablePromise((resolve, response) => {
 
