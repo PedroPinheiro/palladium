@@ -134,8 +134,36 @@ class Resource extends Endpoint {
 class Service extends Endpoint {
 
     constructor(params) {
-
         super(params);
+        return this._formatReturn();
+    }
+
+    _onInit({url,config}) {
+
+        let Method = (config.methods=="GET")?Get:
+                     (config.methods=="POST")?Post:
+                     (config.methods=="DELETE")?Delete:
+                     (config.methods=="PUT")?Put:null;
+
+        if (Method==null)
+            throw new Exception("Invalid Method")
+
+        this._method = new Method({url});
+        this._subEndpoints = {};
+    }
+
+    _processMethod(data) {
+        return this._method.execute(data);
+    }
+
+    _formatReturn(data) {
+        return Object.assign(this._processMethod.bind(this),
+                             this._subEndpoints)
+    }
+
+    _handleSubendpoint(key, endpoint) {
+        this[key] = endpoint;
+        this._subEndpoints[key] = endpoint;
     }
 
 }
