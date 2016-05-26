@@ -2,7 +2,7 @@ import Fenix                 from "./src/Fenix";
 import { LocalStorageCache } from "./src/cache";
 import { Resource }          from "./src/endpoint";
 
-const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+// const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 
 const url = "http://jsonplaceholder.typicode.com";
