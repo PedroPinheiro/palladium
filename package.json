@@ -2,11 +2,11 @@
   "name": "fenixjs",
   "version": "0.1.2",
   "description": "FenixJS, smart fetch library",
-  "main": "index.js",
+  "main": "dist/Fenix.js",
   "scripts": {
     "test": "mocha --recursive --compilers js:babel-register",
     "coverage": "babel-node node_modules/isparta/bin/isparta cover --report text --report html node_modules/mocha/bin/_mocha -- --reporter dot",
-    "build": "babel src --out-file dist/fenix.js && uglifyjs dist/fenix.js -m -o dist/fenix.min.js --source-map dist/fenix.min.js.map",
+    "build": "babel src --out-dir dist",
     "start": "babel-node index.js"
   },
   "repository": {
@@ -35,7 +35,6 @@
     "mocha": "^2.4.5",
     "object-assign": "^4.1.0",
     "uglify-js": "^2.6.2",
-    "uglifyjs": "^2.4.10",
     "xmlhttprequest": "^1.8.0"
   },
   "dependencies": {

@@ -2,6 +2,7 @@ import Fenix                 from "./src/Fenix";
 import { LocalStorageCache } from "./src/cache";
 import { Resource }          from "./src/endpoint";
 
+const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 
 const url = "http://jsonplaceholder.typicode.com";
@@ -62,7 +63,9 @@ const api = new Fenix({ url, config, defaults });
 // console.log(l.abort());
 
 let l = api.comments().then(({data}) => console.log("Length:",data.length));
-l.abort();
+// l.abort();
+
+// console.log(api.posts);
 
 
 

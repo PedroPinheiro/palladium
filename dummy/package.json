@@ -1,0 +1,28 @@
+{
+  "name": "dummy",
+  "version": "0.0.1",
+  "description": "Dummy APP for Fenixjs testing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "update-fenix": "rm -rf node_modules/fenixjs && npm i"
+  },
+  "keywords": [
+    "dummy",
+    "fenixjs"
+  ],
+  "author": "Pedro Pinheiro",
+  "license": "MIT",
+  "dependencies": {
+    "fenixjs": "file:../"
+  },
+  "devDependencies": {
+    "babel-core": "^6.9.0",
+    "babel-loader": "^6.2.4",
+    "express": "^4.13.4",
+    "webpack": "^1.13.1",
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-hot-middleware": "^2.10.0"
+  }
+}
