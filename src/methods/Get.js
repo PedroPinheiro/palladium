@@ -1,4 +1,5 @@
-import Method        from "./Method";
+import Method               from "./Method";
+import { AbortablePromise } from "../utils";
 
 class Get extends Method {
 
@@ -15,21 +16,26 @@ class Get extends Method {
 
         let { url, cache } = this;
 
-        return new Promise((resolve, response) => {
+        let fetcher = {};
+
+        let promise = new AbortablePromise((resolve, response) => {
             let valueFromCache = this._getDataFromCache();
             if (valueFromCache) {
                 resolve(valueFromCache)
                 return;
             }
 
-            super.execute()
-                .then(data => {
-                    this._saveDataToCache(data);
-                    resolve(data);
-                })
-                .catch(response)
+            fetcher = super.execute()
+                           .then(data => {
+                                this._saveDataToCache(data);
+                                resolve(data);
+                           })
+                           .catch(response)
         });
 
+        promise.setAbort(fetcher._abort);
+
+        return promise;
     }
 
     _getDataFromCache() {

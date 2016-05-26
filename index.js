@@ -12,12 +12,21 @@ const url = "http://jsonplaceholder.typicode.com";
 //     options: [AuthenticatedMixin]
 // }
 
-const defaults = {};
+const defaults = {
+    // example of api default options
+    // options: {
+    //     pk: "_id"
+    // }
+};
 
 
 const config = {
     "posts": {
         methods: '*',
+        // Example of endpoint options
+        // options: {
+        //     pk: "idPost"
+        // },
         "comments": {
             methods: '*',
             cache: {
@@ -25,7 +34,10 @@ const config = {
                 // type: LocalStorageCache
             }
         },
-        options: [] // sobrescreve defaults
+        // example of Service
+        "send": {
+            methods: "POST"
+        }
     },
     "comments": {
         methods: 'GET',
@@ -42,16 +54,28 @@ const api = new Fenix({ url, config, defaults });
 // api.posts().then(({data}) => console.log(data.length));
 
 
-api.posts();
-api.posts("2")();
-api.posts.comments();
-api.posts("2").comments();
+// api.posts("2").comments();
+// api.posts("2").comments();
+
+// api.posts.send();
+// let l = api.posts.save({idPost:10,name:"Teste"});
+// console.log(l.abort());
+
+let l = api.comments().then(({data}) => console.log("Length:",data.length));
+l.abort();
 
 
-api.posts("2")
-    .comments()
-    .then(({data}) => console.log(data.length))
-    .catch((err) => {console.log(err)});
+
+// api.posts();
+// api.posts("2")();
+// api.posts.comments();
+// api.posts("2").comments();
+
+
+// api.posts("2")
+//     .comments()
+//     .then(({data}) => console.log(data.length))
+//     .catch((err) => {console.log(err)});
 
 // api.comments().then(({data}) => {
 //     let d = data;

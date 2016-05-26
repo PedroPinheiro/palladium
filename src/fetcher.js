@@ -6,6 +6,7 @@ if (typeof XMLHttpRequest === 'undefined') {
 if (typeof window !== "undefined" && !window.XMLHttpRequest) // code for IE6, IE5
     XMLHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
 
+import { AbortablePromise } from "./utils";
 
 export default function fetcher (method, url, data) {
 
@@ -15,7 +16,7 @@ export default function fetcher (method, url, data) {
 
     console.log("log: fetcher:", method, url);
 
-    return new Promise((resolve, response) => {
+    let promise = new AbortablePromise((resolve, response) => {
 
         let res = {};
         xhr.onreadystatechange = () => {
@@ -39,5 +40,9 @@ export default function fetcher (method, url, data) {
         xhr.send(data);
 
     });
+
+    promise.setAbort(() => xhr.abort());
+
+    return promise;
 
 }
