@@ -50,9 +50,7 @@ class Endpoint {
 class Resource extends Endpoint {
 
     constructor(params) {
-
         super(params);
-
         return this._formatReturn();
     }
 
@@ -70,10 +68,13 @@ class Resource extends Endpoint {
     _formatReturn() {
 
         let returnFunction = this._processGet.bind(this);
-        returnFunction.save = this.save;
-        returnFunction.delete = this.delete;
-
-        Object.assign(returnFunction, this._subEndpoints)
+        returnFunction.save = this.save.bind(this);
+        returnFunction.delete = this.delete.bind(this);
+        returnFunction
+        //
+        // Object.assign(returnFunction,
+        //               this._methods,
+        //               this._subEndpoints)
 
         return returnFunction;
     }
