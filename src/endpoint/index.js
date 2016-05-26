@@ -21,12 +21,15 @@ class Endpoint {
             if (!this._isEndpoint(k)) {
                 return;
             }
-            let configItem = config[k];
-            let params = {url: `${url}/${k}`, config: configItem, defaults};
+            let params = {
+                url      : `${url}/${k}`,
+                config   : config[k],
+                defaults : Object.assign(this._defaults.options,
+                                         config[k].options)
+            };
             let subEndpoint = EndpointFactory.create(params);
             this._handleSubendpoint(k, subEndpoint);
         });
-
     }
 
     _setDefaults(defaults) {
@@ -103,7 +106,7 @@ class Resource extends Endpoint {
     }
 
     save(data) {
-        if (!data.id) {
+        if (!data[this._defaults.options.pk]) {
             return this._methods.post.execute(data);
         } else {
             return this._methods.put.execute(data);
