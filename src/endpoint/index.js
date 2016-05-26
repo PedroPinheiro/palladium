@@ -57,11 +57,13 @@ class Resource extends Endpoint {
     }
 
     _onInit({url,config}) {
-        let cache    = this._getConfigCacheOrDefault(config);
-        this._get    = new Get({url, cache});
-        this._post   = new Post({url, cache});
-        this._put    = new Put({url, cache});
-        this._delete = new Delete({url, cache});
+        let cache = this._getConfigCacheOrDefault(config);
+        this._methods = {
+            get  : new Get({url, cache}),
+            post : new Post({url}),
+            put  : new Put({url}),
+            del  : new Delete({url})
+        };
         this._subEndpoints = {};
     }
 
@@ -78,7 +80,7 @@ class Resource extends Endpoint {
 
     _processGet(id) {
 
-        return ( !id ) ? this._get.execute() : this._nestedResource(id);
+        return ( !id ) ? this._methods.get.execute() : this._nestedResource(id);
     }
 
     _nestedResource(id) {
@@ -101,14 +103,14 @@ class Resource extends Endpoint {
 
     save(data) {
         if (!data.id) {
-            return this._post.execute(data);
+            return this._methods.post.execute(data);
         } else {
-            return this._put.execute(data);
+            return this._methods.put.execute(data);
         }
     }
 
     delete(data) {
-        return this._delete.execute(data);
+        return this._methods.delete.execute(data);
     }
 
     _getConfigCacheOrDefault(config) {

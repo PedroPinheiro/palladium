@@ -3,9 +3,12 @@ import Method        from "./Method";
 class Get extends Method {
 
     constructor({url, cache}) {
+        super({url, method: "GET"});
+        this._cache = cache;
+    }
 
-        super({url, cache, method: "GET"});
-
+    get cache() {
+        return this._cache;
     }
 
     execute() {
@@ -31,7 +34,7 @@ class Get extends Method {
 
     _getDataFromCache() {
 
-        let { cache, url } = this;
+        let { url, cache } = this;
 
         if ( !cache )
             return;
@@ -47,7 +50,6 @@ class Get extends Method {
                 cache.type.remove(url);
             }
         }
-
 
         return;
     }

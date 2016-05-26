@@ -2,9 +2,9 @@ import Method        from "./Method";
 
 class Put extends Method {
 
-    constructor({url, cache}) {
+    constructor({url}) {
 
-        super({url, cache, method: "PUT"})
+        super({url, method: "PUT"})
 
     }
 
