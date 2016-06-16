@@ -1,6 +1,6 @@
 {
   "name": "fenixjs",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "FenixJS, smart fetch library",
   "main": "dist/Fenix.js",
   "scripts": {
