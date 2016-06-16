@@ -2,9 +2,9 @@ import Method        from "./Method";
 
 class Post extends Method {
 
-    constructor({url}) {
+    constructor({url, options}) {
 
-        super({url, method: "POST"})
+        super({url, method: "POST", options})
 
     }
 

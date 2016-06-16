@@ -38,6 +38,11 @@ const config = {
         // example of Service
         "send": {
             methods: "POST"
+        },
+        options: {
+            headers: {
+                "x-auth-token": "eyJleHBpcmVzIjoxNDY1NjQ3MTE1MjQ3LCJ1c2VybmFtZSI6InBlZHJvQHBpbmhlaXJvIn0=.Sis7a3R8PV9BqKAZLeedbxaG2KKlkNa2J6eKAsRzkhQ="
+            }
         }
     },
     "comments": {

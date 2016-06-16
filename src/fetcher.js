@@ -8,7 +8,7 @@ if (typeof window !== "undefined" && !window.XMLHttpRequest) // code for IE6, IE
 
 import { AbortablePromise } from "./utils";
 
-export default function fetcher (method, url, data) {
+export default function fetcher (method, url, data, config = {}) {
 
     let xhr = new XMLHttpRequest();
     let a = [];
@@ -21,6 +21,9 @@ export default function fetcher (method, url, data) {
 
             // Test if request is complete
             if (xhr.readyState == 4) {
+
+              Object.keys(config.responseHeaders||{})
+                .forEach(h => config.responseHeaders[h] = xhr.getResponseHeader(h) );
 
               // Safari doesn't support xhr.responseType = 'json'
               // so the response is parsed
@@ -35,7 +38,11 @@ export default function fetcher (method, url, data) {
             }
         };
 
-        xhr.send(data);
+        Object.keys(config.requestHeaders||{})
+            .forEach(h => xhr.setRequestHeader(h, config.requestHeaders[h]) );
+
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.send(JSON.stringify(data));
 
     });
 

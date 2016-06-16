@@ -3,8 +3,8 @@ import { AbortablePromise } from "../utils";
 
 class Get extends Method {
 
-    constructor({url, cache}) {
-        super({url, method: "GET"});
+    constructor({url, cache, options}) {
+        super({url, method: "GET", options});
         this._cache = cache;
     }
 

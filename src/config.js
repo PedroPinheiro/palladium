@@ -2,7 +2,11 @@
 const fenixDefaults = {
     cache : null,
     methods : '*',
-    options : { pk : "id" }
+    options : {
+        pk : "id",
+        requestHeaders: {},
+        responseHeaders: {}
+    }
 };
 
 export {

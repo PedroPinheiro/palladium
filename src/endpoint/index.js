@@ -59,11 +59,12 @@ class Resource extends Endpoint {
 
     _onInit({url,config}) {
         let cache = this._getConfigCacheOrDefault(config);
+        let options = config.options;
         this._methods = {
-            get  : new Get({url, cache}),
-            post : new Post({url}),
-            put  : new Put({url}),
-            del  : new Delete({url})
+            get  : new Get({url, cache, options}),
+            post : new Post({url, options}),
+            put  : new Put({url, options}),
+            del  : new Delete({url, options})
         };
         this._subEndpoints = {};
     }
@@ -103,10 +104,12 @@ class Resource extends Endpoint {
     }
 
     save(data) {
-        if (!data[this._defaults.options.pk]) {
-            return this._methods.post.execute(data);
-        } else {
+        if (this._defaults.options
+            && this._defaults.options.pk
+            && data[this._defaults.options.pk]) {
             return this._methods.put.execute(data);
+        } else {
+            return this._methods.post.execute(data);
         }
     }
 
@@ -145,7 +148,9 @@ class Service extends Endpoint {
         if (Method==null)
             throw new Exception("Invalid Method")
 
-        this._method = new Method({url});
+        let options = config.options;
+
+        this._method = new Method({url, options});
         this._subEndpoints = {};
     }
 

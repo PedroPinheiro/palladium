@@ -2,9 +2,9 @@ import Method        from "./Method";
 
 class Delete extends Method {
 
-    constructor({url}) {
+    constructor({url, options}) {
 
-        super({url, method: "DELETE"})
+        super({url, method: "DELETE", options})
 
     }
 

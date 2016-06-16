@@ -1,28 +1,28 @@
 import BaseCache from "./BaseCache";
 
-let data = {};
 
 class MemoryCache extends BaseCache {
 
     constructor() {
         super();
+        this._data = {};
     }
 
     add(key, value, expires) {
 
         let item = super.add(key, value, expires);
 
-        data[key] = item;
+        this._data[key] = item;
 
         this._collectGarbage();
     }
 
     get(key) {
-        return data[key];
+        return this._data[key];
     }
 
     remove(key) {
-        delete data[key]
+        delete this._data[key]
     }
 
     _collectGarbage() {
