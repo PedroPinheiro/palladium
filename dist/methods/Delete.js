@@ -21,10 +21,11 @@ var Delete = function (_Method) {
 
     function Delete(_ref) {
         var url = _ref.url;
+        var options = _ref.options;
 
         _classCallCheck(this, Delete);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(Delete).call(this, { url: url, method: "DELETE" }));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(Delete).call(this, { url: url, method: "DELETE", options: options }));
     }
 
     return Delete;

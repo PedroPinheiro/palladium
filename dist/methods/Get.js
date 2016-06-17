@@ -28,10 +28,11 @@ var Get = function (_Method) {
     function Get(_ref) {
         var url = _ref.url;
         var cache = _ref.cache;
+        var options = _ref.options;
 
         _classCallCheck(this, Get);
 
-        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Get).call(this, { url: url, method: "GET" }));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Get).call(this, { url: url, method: "GET", options: options }));
 
         _this._cache = cache;
         return _this;

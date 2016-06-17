@@ -4,7 +4,10 @@ const fenixDefaults = {
     methods : '*',
     options : {
         pk : "id",
-        requestHeaders: {},
+        requestHeaders: {
+            'Accept'       : 'application/json',
+            "Content-Type" : "application/json"
+        },
         responseHeaders: {}
     }
 };

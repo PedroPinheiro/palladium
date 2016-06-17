@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -7,7 +7,14 @@ Object.defineProperty(exports, "__esModule", {
 var fenixDefaults = {
     cache: null,
     methods: '*',
-    options: { pk: "id" }
+    options: {
+        pk: "id",
+        requestHeaders: {
+            'Accept': 'application/json',
+            "Content-Type": "application/json"
+        },
+        responseHeaders: {}
+    }
 };
 
 exports.fenixDefaults = fenixDefaults;

@@ -100,11 +100,12 @@ var Resource = function (_Endpoint) {
             var config = _ref3.config;
 
             var cache = this._getConfigCacheOrDefault(config);
+            var options = config.options;
             this._methods = {
-                get: new _methods.Get({ url: url, cache: cache }),
-                post: new _methods.Post({ url: url }),
-                put: new _methods.Put({ url: url }),
-                del: new _methods.Delete({ url: url })
+                get: new _methods.Get({ url: url, cache: cache, options: options }),
+                post: new _methods.Post({ url: url, options: options }),
+                put: new _methods.Put({ url: url, options: options }),
+                del: new _methods.Delete({ url: url, options: options })
             };
             this._subEndpoints = {};
         }
@@ -148,10 +149,10 @@ var Resource = function (_Endpoint) {
     }, {
         key: "save",
         value: function save(data) {
-            if (!data[this._defaults.options.pk]) {
-                return this._methods.post.execute(data);
-            } else {
+            if (this._defaults.options && this._defaults.options.pk && data[this._defaults.options.pk]) {
                 return this._methods.put.execute(data);
+            } else {
+                return this._methods.post.execute(data);
             }
         }
     }, {
@@ -203,7 +204,9 @@ var Service = function (_Endpoint2) {
 
             if (Method == null) throw new Exception("Invalid Method");
 
-            this._method = new Method({ url: url });
+            var options = config.options;
+
+            this._method = new Method({ url: url, options: options });
             this._subEndpoints = {};
         }
     }, {

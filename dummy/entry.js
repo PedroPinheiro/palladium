@@ -2,7 +2,8 @@ import Fenix from "fenixjs";
 
 
 // const url = "http://jsonplaceholder.typicode.com";
-const url = "https://api.express.kpl.com.br/api";
+// const url = "https://api.express.kpl.com.br/api";
+const url = "http://localhost:3040";
 
 
 const defaults = {
@@ -15,8 +16,18 @@ const defaults = {
 let xAuthToken = "";
 
 const config = {
+    "login": {
+        methods: 'POST',
+        options: {
+            responseHeaders: {
+                set "X-AUTH-TOKEN" (token) {
+                    xAuthToken = token;
+                }
+            }
+        }
+    },
     "accounts": {
-        methods: 'GET',
+        methods: '*',
         "login": {
             methods: 'POST',
             options: {
@@ -26,21 +37,38 @@ const config = {
                     }
                 }
             }
-        }
+        },
     },
-    "users": {
+    "products": {
         methods: '*',
-        "me": {
-            methods: 'GET',
-            options: {
-                requestHeaders: {
-                    get "X-AUTH-TOKEN" (){
-                        return xAuthToken;
-                    }
+        options: {
+            requestHeaders: {
+                get "X-AUTH-TOKEN" (){
+                    return xAuthToken;
                 }
             }
         }
-    }
+    },
+    "brands": {
+        methods: '*',
+        options: {
+            requestHeaders: {
+                get "X-AUTH-TOKEN" (){
+                    return xAuthToken;
+                }
+            }
+        }
+    },
+    "posts": {
+        methods: '*',
+        options: {
+            requestHeaders: {
+                get "X-AUTH-TOKEN" (){
+                    return xAuthToken;
+                }
+            }
+        }
+    },
 }
 
 //

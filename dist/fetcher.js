@@ -15,6 +15,8 @@ if (typeof window !== "undefined" && !window.XMLHttpRequest) // code for IE6, IE
     XMLHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
 
 function fetcher(method, url, data) {
+    var config = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+
 
     var xhr = new XMLHttpRequest();
     var a = [];
@@ -27,6 +29,10 @@ function fetcher(method, url, data) {
 
             // Test if request is complete
             if (xhr.readyState == 4) {
+
+                Object.keys(config.responseHeaders || {}).forEach(function (h) {
+                    return config.responseHeaders[h] = xhr.getResponseHeader(h);
+                });
 
                 // Safari doesn't support xhr.responseType = 'json'
                 // so the response is parsed
@@ -41,7 +47,12 @@ function fetcher(method, url, data) {
             }
         };
 
-        xhr.send(data);
+        Object.keys(config.requestHeaders || {}).forEach(function (h) {
+            return xhr.setRequestHeader(h, config.requestHeaders[h]);
+        });
+
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.send(JSON.stringify(data));
     });
 
     promise.setAbort(function () {

@@ -21,10 +21,11 @@ var Put = function (_Method) {
 
     function Put(_ref) {
         var url = _ref.url;
+        var options = _ref.options;
 
         _classCallCheck(this, Put);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(Put).call(this, { url: url, method: "PUT" }));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(Put).call(this, { url: url, method: "PUT", options: options }));
     }
 
     return Put;

@@ -20,15 +20,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var data = {};
-
 var MemoryCache = function (_BaseCache) {
     _inherits(MemoryCache, _BaseCache);
 
     function MemoryCache() {
         _classCallCheck(this, MemoryCache);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(MemoryCache).call(this));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MemoryCache).call(this));
+
+        _this._data = {};
+        return _this;
     }
 
     _createClass(MemoryCache, [{
@@ -37,19 +38,19 @@ var MemoryCache = function (_BaseCache) {
 
             var item = _get(Object.getPrototypeOf(MemoryCache.prototype), "add", this).call(this, key, value, expires);
 
-            data[key] = item;
+            this._data[key] = item;
 
             this._collectGarbage();
         }
     }, {
         key: "get",
         value: function get(key) {
-            return data[key];
+            return this._data[key];
         }
     }, {
         key: "remove",
         value: function remove(key) {
-            delete data[key];
+            delete this._data[key];
         }
     }, {
         key: "_collectGarbage",

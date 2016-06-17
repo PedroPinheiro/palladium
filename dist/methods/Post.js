@@ -21,10 +21,11 @@ var Post = function (_Method) {
 
     function Post(_ref) {
         var url = _ref.url;
+        var options = _ref.options;
 
         _classCallCheck(this, Post);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(Post).call(this, { url: url, method: "POST" }));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(Post).call(this, { url: url, method: "POST", options: options }));
     }
 
     return Post;

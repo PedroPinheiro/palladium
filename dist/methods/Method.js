@@ -18,23 +18,30 @@ var Method = function () {
     function Method(_ref) {
         var url = _ref.url;
         var method = _ref.method;
+        var options = _ref.options;
 
         _classCallCheck(this, Method);
 
         this._url = url;
+        this._options = options;
         this._method = method;
     }
 
     _createClass(Method, [{
         key: "execute",
-        value: function execute(data, options) {
+        value: function execute(data) {
 
-            return (0, _fetcher2.default)(this.method, this.url, data);
+            return (0, _fetcher2.default)(this.method, this.url, data, this.options);
         }
     }, {
         key: "url",
         get: function get() {
             return this._url;
+        }
+    }, {
+        key: "options",
+        get: function get() {
+            return this._options;
         }
     }, {
         key: "method",
