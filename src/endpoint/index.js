@@ -82,7 +82,9 @@ class Resource extends Endpoint {
 
     _processGet(id) {
 
-        return ( !id ) ? this._methods.get.execute() : this._nestedResource(id);
+        return ( !id || typeof id == "object" ) ?
+                this._methods.get.execute(id) :
+                this._nestedResource(id);
     }
 
     _nestedResource(id) {

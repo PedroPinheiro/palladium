@@ -40,7 +40,7 @@ var Get = function (_Method) {
 
     _createClass(Get, [{
         key: "execute",
-        value: function execute() {
+        value: function execute(data) {
             var _this2 = this;
 
             var url = this.url;
@@ -56,9 +56,9 @@ var Get = function (_Method) {
                     return;
                 }
 
-                fetcher = _get(Object.getPrototypeOf(Get.prototype), "execute", _this2).call(_this2).then(function (data) {
-                    _this2._saveDataToCache(data);
-                    resolve(data);
+                fetcher = _get(Object.getPrototypeOf(Get.prototype), "execute", _this2).call(_this2, data).then(function (responseData) {
+                    _this2._saveDataToCache(responseData);
+                    resolve(responseData);
                 }).catch(response);
             });
 

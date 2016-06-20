@@ -12,7 +12,7 @@ class Get extends Method {
         return this._cache;
     }
 
-    execute() {
+    execute(data) {
 
         let { url, cache } = this;
 
@@ -25,10 +25,10 @@ class Get extends Method {
                 return;
             }
 
-            fetcher = super.execute()
-                           .then(data => {
-                                this._saveDataToCache(data);
-                                resolve(data);
+            fetcher = super.execute(data)
+                           .then(responseData => {
+                                this._saveDataToCache(responseData);
+                                resolve(responseData);
                            })
                            .catch(response)
         });

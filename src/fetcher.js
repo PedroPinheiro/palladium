@@ -8,7 +8,20 @@ if (typeof window !== "undefined" && !window.XMLHttpRequest) // code for IE6, IE
 
 import { AbortablePromise } from "./utils";
 
+const getQueryString = (data) => {
+    let keys = Object.keys(data)
+    if (keys.length==1)
+        return encodeURI(`?${keys[0]}=${data[keys[0]]}`)
+
+    return encodeURI(keys.reduce((s,k,i) => (i==1?`?${s}=${data[s]}`:s)+`&${k}=${data[k]}`));
+}
+
 export default function fetcher (method, url, data, config = {}) {
+
+    if (method == "GET" && data && typeof data == "object") {
+        url += getQueryString(data)
+        data = null
+    }
 
     let xhr = new XMLHttpRequest();
     let a = [];
