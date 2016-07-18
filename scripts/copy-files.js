@@ -62,7 +62,7 @@ function createPackageFile() {
       author,
       version,
       description,
-      main: './index.js',
+      main: './Palladium.js',
       keywords,
       repository,
       license,
