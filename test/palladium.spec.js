@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import { expect } from "chai";
-import Fenix      from "../src/Fenix";
+import Palladium      from "../src/Palladium";
 
 let url = "http://jsonplaceholder.typicode.com";
 let config = {
@@ -23,9 +23,9 @@ let config = {
 };
 
 
-const api = new Fenix({ url, config });
+const api = new Palladium({ url, config });
 
-describe('Fenix', () => {
+describe('Palladium', () => {
 
     it ("Generated correctly with the config", () => {
 

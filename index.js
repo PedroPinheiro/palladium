@@ -1,4 +1,4 @@
-import Fenix                 from "./src/Fenix";
+import Palladium             from "./src/Palladium";
 import { LocalStorageCache } from "./src/cache";
 import { Resource }          from "./src/endpoint";
 
@@ -67,7 +67,7 @@ const config = {
 }
 
 
-const api = new Fenix({ url, config, defaults });
+const api = new Palladium({ url, config, defaults });
 
 // console.log( api );
 

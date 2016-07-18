@@ -1,8 +1,8 @@
 import { Get, Post, Put, Delete } from "../methods";
 import { MemoryCache }            from "../cache";
-import { fenixDefaults }          from "../config";
+import { palladiumDefaults }      from "../config";
 
-const _reservedWords = Object.keys(fenixDefaults);
+const _reservedWords = Object.keys(palladiumDefaults);
 
 class Endpoint {
 
@@ -33,7 +33,7 @@ class Endpoint {
     }
 
     _setDefaults(defaults) {
-        this._defaults = Object.assign({}, fenixDefaults, defaults);
+        this._defaults = Object.assign({}, palladiumDefaults, defaults);
     }
 
     _isEndpoint(word) {

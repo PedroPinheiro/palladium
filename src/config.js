@@ -1,5 +1,5 @@
 
-const fenixDefaults = {
+const palladiumDefaults = {
     cache : null,
     methods : '*',
     options : {
@@ -13,5 +13,5 @@ const fenixDefaults = {
 };
 
 export {
-    fenixDefaults
+    palladiumDefaults
 }

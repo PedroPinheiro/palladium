@@ -1,28 +1,32 @@
 {
-  "name": "fenixjs",
+  "name": "palladium",
   "version": "0.3.0",
-  "description": "FenixJS, smart fetch library",
-  "main": "dist/Fenix.js",
+  "description": "Palladium, smart request library",
+  "main": "dist/Palladium.js",
   "scripts": {
     "test": "mocha --recursive --compilers js:babel-register",
     "coverage": "babel-node node_modules/isparta/bin/isparta cover --report text --report html node_modules/mocha/bin/_mocha -- --reporter dot",
-    "build": "babel src --out-dir dist",
-    "start": "babel-node index.js"
+    "start": "babel-node index.js",
+    "build": "npm run build:babel && npm run build:copy-files",
+    "build:babel": "babel ./src --ignore *.spec.js --out-dir ./build",
+    "build:copy-files": "babel-node ./scripts/copy-files.js",
+    "clean:build": "rimraf build",
+    "prebuild": "npm run clean:build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PedroPinheiro/fenixjs.git"
+    "url": "git+https://github.com/PedroPinheiro/palladium.git"
   },
   "keywords": [
-    "Fenixjs",
+    "Palladium",
     "fetch"
   ],
   "author": "Pedro Pinheiro <pedropaulocspinheiro@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/PedroPinheiro/fenixjs/issues"
+    "url": "https://github.com/PedroPinheiro/palladium/issues"
   },
-  "homepage": "https://github.com/PedroPinheiro/fenixjs#readme",
+  "homepage": "https://github.com/PedroPinheiro/palladium#readme",
   "devDependencies": {
     "babel-cli": "^6.6.5",
     "babel-polyfill": "^6.7.2",
@@ -30,6 +34,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.7.2",
     "chai": "^3.5.0",
+    "fs-extra": "^0.30.0",
     "isparta": "^4.0.0",
     "istanbul": "^0.4.3",
     "mocha": "^2.4.5",

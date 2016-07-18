@@ -6,16 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "update-fenix": "rm -rf node_modules/fenixjs && npm i"
+    "update-fenix": "rm -rf node_modules/palladium && npm i"
   },
   "keywords": [
     "dummy",
-    "fenixjs"
+    "palladium"
   ],
   "author": "Pedro Pinheiro",
   "license": "MIT",
   "dependencies": {
-    "fenixjs": "file:../"
+    "palladium": "file:../"
   },
   "devDependencies": {
     "babel-core": "^6.9.0",

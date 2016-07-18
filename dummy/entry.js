@@ -1,4 +1,4 @@
-import Fenix from "fenixjs";
+import Palladium from "palladium";
 
 
 // const url = "http://jsonplaceholder.typicode.com";
@@ -105,6 +105,6 @@ const config = {
 // };
 
 
-const api = new Fenix({ url, config, defaults });
+const api = new Palladium({ url, config, defaults });
 
 window.api = api;

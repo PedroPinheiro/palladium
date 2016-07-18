@@ -1,4 +1,4 @@
-# Fenix.js [![Build Status](https://travis-ci.org/PedroPinheiro/fenixjs.svg?branch=master)](https://travis-ci.org/PedroPinheiro/fenixjs)
+# Palladium [![Build Status](https://travis-ci.org/PedroPinheiro/palladium.svg?branch=master)](https://travis-ci.org/PedroPinheiro/palladium)
 
 * No Deps
 
