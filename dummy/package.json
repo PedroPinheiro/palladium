@@ -15,7 +15,7 @@
   "author": "Pedro Pinheiro",
   "license": "MIT",
   "dependencies": {
-    "palladium": "file:../"
+    "palladium": "file:../build/"
   },
   "devDependencies": {
     "babel-core": "^6.9.0",

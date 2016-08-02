@@ -2,7 +2,7 @@
   "name": "palladium",
   "version": "0.3.2",
   "description": "Palladium, smart request library",
-  "main": "dist/Palladium.js",
+  "main": "src/Palladium.js",
   "scripts": {
     "test": "mocha --recursive --compilers js:babel-register",
     "coverage": "babel-node node_modules/isparta/bin/isparta cover --report text --report html node_modules/mocha/bin/_mocha -- --reporter dot",
